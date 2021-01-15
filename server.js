@@ -48,7 +48,12 @@ app.use(fileupload());
 app.use(mongoSanitize());
 
 // Set security headers
-app.use(helmet());
+app.use(
+    helmet({
+        contentSecurityPolicy: false,
+        referrerPolicy: { policy: 'no-referrer' },
+    })
+);
 
 // Prevent XSS attacks
 app.use(xss());
@@ -63,7 +68,7 @@ app.use(limiter);
 // Prevent http param pollution
 app.use(hpp());
 
-// Enable CORS 
+// Enable CORS
 app.use(cors());
 
 // Set static folder
